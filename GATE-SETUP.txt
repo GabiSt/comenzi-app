@@ -1,0 +1,26 @@
+POARTA DE ACCES (gate.js) - cum o configurezi
+=============================================
+Ce face: la deschiderea aplicatiei verifica IP-ul public al retelei (prin api.ipify.org). Daca e in ALLOWED_IPS, aplicatia
+se deschide direct. Altfel (alta retea, date mobile, fara internet) apare un ecran care cere parola de administrator.
+Parola cere o singura data pe sesiune (cat timp aplicatia ramane deschisa).
+Pana configurezi ADMIN_HASH, poarta este INACTIVA (aplicatia merge ca pana acum).
+
+1. IP-ul public al Wi-Fi-ului firmei
+   Conecteaza un telefon/PC la Wi-Fi-ul firmei si deschide https://api.ipify.org  -> pune valoarea in ALLOWED_IPS din gate.js.
+   Daca firma nu are IP public fix, adresa se poate schimba si poarta va cere parola: intreaba furnizorul de internet.
+
+2. Parola de administrator (hash)
+   Deschide site-ul tau in browser, apasa F12 -> Console si ruleaza (pune parola ta in loc de PAROLA_TA;
+   "schimba-ma-comenzi" trebuie sa fie la fel ca SALT din gate.js):
+
+   crypto.subtle.digest("SHA-256", new TextEncoder().encode("schimba-ma-comenzi" + "PAROLA_TA")).then(b => console.log([...new Uint8Array(b)].map(x => x.toString(16).padStart(2, "0")).join("")))
+
+   Copiaza textul rezultat in ADMIN_HASH. Schimba si SALT cu un text al tau (si recalculeaza hash-ul).
+
+3. Republica pe Netlify (tot folderul), redeschide aplicatia de doua ori ca sa ia versiunea noua.
+
+LIMITE (important)
+ - Codul ruleaza in telefonul utilizatorului: cine se pricepe poate sterge ecranul de parola din "Inspect" sau opri JavaScript-ul.
+   Protejeaza impotriva folosirii obisnuite in afara firmei, nu impotriva cuiva hotarat.
+ - Un browser nu poate citi numele Wi-Fi-ului (SSID); se verifica doar IP-ul public.
+ - Pentru protectie reala: Netlify Edge Function (verificare pe server), publicata cu Git sau Netlify CLI, nu cu Drop.

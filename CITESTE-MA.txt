@@ -1,0 +1,40 @@
+EVIDENTA COMENZI - aplicatie locala (PWA) pentru telefon
+
+CE FACE
+- Incarci Excelul (cu antetul tau pe 3 randuri) o singura data; ramane salvat pe telefon, functioneaza si offline.
+  Excelul NU paraseste telefonul.
+- Tab "Comenzi": toate comenzile din Excel. Cautarea ia in considerare toate coloanele deodata (nr. comanda extern/intern, lingou, forja, P.M., client, aliaj etc.);
+  rezultatele cu potrivire in coloanele de numere apar primele, cu mentiunea "Gasit in". Ignora liniutele si spatiile
+  (ex. "l7h342" gaseste "L-7H342"). Mai poti filtra dupa zi.
+- Duplicatele (randuri identice in toate coloanele, in afara de Nr. crt.) sunt eliminate automat la incarcare;
+  numarul lor apare langa numarul de comenzi.
+- Tab "Calendar": vedere pe luni, cu un punct colorat per comanda, culoarea = stadiul comenzii.
+  Alegi ce data afisezi: Livrare (ETA), Finalizare ZIROM sau Lansare. Atingi o zi ca sa vezi comenzile ei;
+  atingi un stadiu din legenda ca sa-l ascunzi/afisezi.
+
+- Tab "AR" (camera): Live (cadre continue) sau Poza (o singura poza / din galerie). Recunoaste marcajul lingoului si arata
+  un card cu Clientul, Sectiunea/Aliajul, Gradul, Dimensiunile, Termenul solicitat si stadiul. Cauta marcajul in coloanele
+  Cda interna, Lingou, Forja si P.M. Daca mai multe comenzi au acelasi numar, atingi cardul pentru urmatoarea.
+  Daca nu citeste, scrii marcajul manual. Butonul "Salveaza" pastreaza cadrul pentru antrenare.
+  Necesita modelul tau antrenat (folderul model/, vezi training/README.txt); camera cere HTTPS si permisiune.
+
+INSTALARE (o singura data, ~5 minute)
+Instalarea cere HTTPS, deci folderul trebuie pus online gratuit:
+ 1. Mergi pe https://app.netlify.com/drop (cont gratuit) si trage in pagina folderul "comenzi-app" dezarhivat.
+    (Alternativa: GitHub Pages.) Primesti un link de tip https://nume.netlify.app
+ 2. Deschide linkul pe telefon:
+    - Android (Chrome): meniu ⋮ -> "Instaleaza aplicatia" / "Adauga pe ecranul principal".
+    - iPhone (Safari): Share -> "Add to Home Screen".
+ 3. In aplicatie: "Incarca Excel" -> alege fisierul. Testeaza cu exemplu_comenzi.xlsx.
+ 4. Dupa o actualizare de fisiere: redeschide aplicatia de doua ori ca sa ia versiunea noua.
+
+NOTE
+- Cand se schimba Excelul, il reincarci.
+- Daca linkul e public, oricine il poate deschide, dar nu vede datele tale (stau doar pe telefonul tau).
+
+PAROLA (optionala)
+- Setari -> "Seteaza parola" (min. 6 caractere). Excelul se salveaza apoi criptat (AES-256) pe telefon.
+- Aplicatia se blocheaza singura dupa 1 minut in fundal, sau manual din Setari -> "Blocheaza acum".
+- Dupa parole gresite, deblocarea se amana tot mai mult (1s, 2s, 4s... maxim 30s).
+- NU exista recuperare: daca uiti parola, singura cale e stergerea datelor site-ului din setarile browserului,
+  apoi reincarci Excelul.
